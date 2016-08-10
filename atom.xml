@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://bike.github.io/</id>
+  <title>кракозя́бры</title>
+  <updated>2016-08-10T03:52:57Z</updated>
+  <link rel="alternate" href="https://bike.github.io/"/>
+  <link rel="self" href="https://bike.github.io/atom.xml"/>
+  <author>
+    <name>None</name>
+    <uri>https://bike.github.io</uri>
+  </author>
+  <entry>
+    <id>tag:bike.github.io,2016-08-09:/posts/dirt-simple-de.html</id>
+    <title type="html">Dirt simple DE</title>
+    <published>2016-08-10T03:52:57Z</published>
+    <updated>2016-08-10T03:52:57Z</updated>
+    <link rel="alternate" href="https://bike.github.io/posts/dirt-simple-de.html"/>
+    <content type="html">
+&lt;p&gt;I’m working through the exercises of a dynamics textbook for lack of worse things to do.&lt;/p&gt;
+
+&lt;p&gt;Dynamics is pretty neat. It is a part of mathematics useful for modeling approximately continuous physical processes. This is analogous to computers, which are useful for modeling discontinuous processes. (I’m going to write about that analogy later, but it’s a subject that requires a lot of precision.) If you’re used to computer models, which tend to be lengthy series of pretty opaque numeric operations possibly written in some obscure language like IDL, the seeming terseness of most dynamic models can be a bit surprising. Where do all these constants come from? How can you draw important conclusions without even having values?&lt;/p&gt;
+
+&lt;p&gt;Well, that’s what I thought when I began learning dynamics, anyway. As it turns out, this is how it works because it’s pretty easy to invent a dynamic model, and easy to describe, and in some cases determine, their qualitative behavior.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2 id="what-is-dynamics"&gt;What is dynamics?&lt;/h2&gt;
+
+&lt;p&gt;Dynamics was invented by Newton*. He wanted to know how physical objects, like planets, move. Naturally this means you want to think about the positions of planets. Pretty obviously you might also be concerned with their velocity, that is the &lt;em&gt;rate&lt;/em&gt; at which their positions change, and maybe even their acceleration, the &lt;em&gt;rate&lt;/em&gt; at which their velocities change. Not infrequently, velocities and acclerations depend on positions, and so on. Newton’s law of gravitation, for example, tells you that the acceleration due to gravity of an object depends on the inverse square of its distance (relative position) to whatever object is exerting a gravitational pull. You can write this down something like&lt;/p&gt;
+
+&lt;p&gt;d²r/dt² = k/r²&lt;/p&gt;
+
+&lt;p&gt;which is to say, the rate of the rate of change of r equals k (a constant of proportionality) times the inverse square of r. This equation is called a “differential equation” because it relates a quantity (position) to its rates of change, or “derivatives” (d²r/dt²).&lt;/p&gt;
+
+&lt;p&gt;This is dynamics. You have rates of change for one or more variables in terms of those variables, and you want to know how those variables actually change - the actual path of the planet, or whatever. Those variables are functions of one independent variable, usually “time”: r(t) = something. (Multiple independent variables takes you to partial differential equations, which are rather more complicated.)&lt;/p&gt;
+
+&lt;h2 id="basic-population-growth"&gt;Basic population growth&lt;/h2&gt;
+
+&lt;p&gt;Every text on dynamics starts with modeling population growth. If you understand this you can skip the first lecture of any class on the subject.&lt;/p&gt;
+
+&lt;p&gt;Say you want to know how the population of an animal species changes over time. You could spend fifty years trapping hares to get samples of the total population, or if you have a reliable human census, use that. In either case you get &lt;em&gt;specifics&lt;/em&gt;. If a meteor struck and killed large parts of the population in the period your data covers, you’re going to see unusual population changes and it’s going to be difficult to extrapolate the future unless you drop a meteor later yourself. You need some kind of theory to explain the numbers you see.&lt;/p&gt;
+
+&lt;p&gt;And hey, trapping is hard, so why not just start there?&lt;/p&gt;
+
+&lt;p&gt;You simplify things greatly. Say you only want to deal with one variable, the population itself. Famines and wars and such are right out. So you might write out&lt;/p&gt;
+
+&lt;p&gt;dP/dt = f(P)&lt;/p&gt;
+
+&lt;p&gt;which is to say that the rate that P, the population, changes, is some arbitrary function of only P itself.&lt;/p&gt;
+
+&lt;p&gt;That’s too vague to solve. You must make further simplifications. You can suppose then that the function f is linear. So, for instance, if you have two populations, and one is twice as large as the other, you would suppose that the larger population grows twice as fast, because there are about twice as many animals/couples reproducing.&lt;/p&gt;
+
+&lt;p&gt;You can also suppose that f(0) = 0, i.e. that if everybody is dead they will not be coming back. Sad!&lt;/p&gt;
+
+&lt;p&gt;These two assumptions together reduce f to being a multiplication by a constant, so your population growth equation is&lt;/p&gt;
+
+&lt;p&gt;dP/dt = cP&lt;/p&gt;
+
+&lt;p&gt;Behold. A model. You can get a curve out of this, P(t) = P(0)exp(ct), and graph it and watch population grow. Regardless of what c or P(0), you will note that P “accelerates”, and grows faster as it grows (as expected from our equation). This is “exponential growth”.&lt;/p&gt;
+
+&lt;p&gt;It’s simple, very super simple, but it’s enough of a model that you can derive some interesting things like Maltusian catastrophes or &lt;a href="http://stochastictalk.blogspot.com/2016/05/karl-marx-at-sunset-of-classical.html"&gt;Marxism&lt;/a&gt; with some more work.&lt;/p&gt;
+
+&lt;p&gt;Of course, you also just made it up, so probably do some empirical validation before you start crowing about surplus population and well yeah.&lt;/p&gt;
+
+&lt;h2 id="carrying-capacity"&gt;Carrying capacity&lt;/h2&gt;
+
+&lt;p&gt;Now let’s say you do some empirical work, maybe go out and work for Hudson’s Bay Company but don’t make enough money on hare furs to quit your modeling job, so you go back to the grindstone.&lt;/p&gt;
+
+&lt;p&gt;In your observations you’ve noticed that the environments populations of animals live in have what you call a “carrying capacity”. If the population in an area is above this “capacity” level, there is not enough food, space for burrows, whatever, and the population dies off. Below the carrying capacity, the population does still grow, but it slows down as it approaches the capacity. You want to modify the above population growth equation with this capacity, call it a constant, K                             .&lt;/p&gt;
+
+&lt;p&gt;You want positive growth P &amp;lt; K and negative growth (death) for P &amp;gt; K. Negative growth just means dP/dt is negative, so one way to do this would be to multiply the existing equation by a number that’s negative only when P &amp;gt; K:&lt;/p&gt;
+
+&lt;p&gt;dP/dt = cP(K - P)&lt;/p&gt;
+
+&lt;p&gt;This sort of works, but has the odd consequence that the growth rate can depend pretty directly on the value of K. E.g., a very low (i.e., the limit as P goes to zero) population in an environment with a K of 10000 will grow about a hundred times faster than one in an environment with a K of 100. This doesn’t exactly fit our ideas of how populations grow, since that higher K could just mean, say, a hundred times more area, for a species that doesn’t even travel around that much.&lt;/p&gt;
+
+&lt;p&gt;Maybe what we want to say is that as K increases to infinity, we recover the original simple dP/dt = cP. Having new models be conservative extensions to existing ones is a useful tactic.&lt;/p&gt;
+
+&lt;p&gt;So instead we can work with the ratio, P/K. P/K is greater than one when P &amp;gt; K, and less than one when P &amp;lt; K, so:&lt;/p&gt;
+
+&lt;p&gt;dP/dt = cP(1 - P/K)&lt;/p&gt;
+
+&lt;p&gt;and when K approaches infinity (or as P approaches zero), the parenthetical term approaches 1, giving us back our original model.&lt;/p&gt;
+
+&lt;h2 id="explicit-solutions"&gt;“Explicit” solutions&lt;/h2&gt;
+
+&lt;p&gt;New model, great. Can we write out an equation to graph, like we did for dP/dt = cP? It turns out that we’re out of luck there, but that may not be so bad.&lt;/p&gt;
+
+&lt;p&gt;You can “explicitly” “solve” any one dimensional differential equation by separation of variables. The solution of dy/dx = F(y) is&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/689ac8cba86b425a32c080e57727b90611f8068b" alt="one-dimensional DE solution" /&gt;&lt;/p&gt;
+
+&lt;p&gt;That is, you can find x as a function of y, but not y as a function of x, at least immediately. It’s a bit odd. If you include y(0) as the bottom limit of integration, you can find x(t) and eliminate the integration constant.&lt;/p&gt;
+
+&lt;p&gt;For the original dP/dt = cP, for instance, we’d integrate 1/(cP), giving us t(P) = log(P(t))/c - log(P(0))/c. Do some algebra and you’ll see that this implies log(P(t)) = ct + log(P(0)); exponentiate both sides and P(t) = P(0)exp(ct) as previously mentioned.&lt;/p&gt;
+
+&lt;p&gt;Inverting the function of time cannot always be done. If we had dx/dt = -x/(1+x²), for instance, we would find that “explicitly”, log(x) + (1/2)x² = -t + log(x(0)) + (1/2)(x(0))², and good luck with that. And of course, sometimes the antiderivative might not be expressible in elementary functions to begin with.&lt;/p&gt;
+
+&lt;p&gt;But that’s not so important, because given just the differential equation(s), you can solve “by quadratures”, also known as “by numerical integration”. This is quite a common thing to do, and hey, if you’re graphing an exponential function on your computer it’s probably doing &lt;em&gt;something&lt;/em&gt; iteratively.&lt;/p&gt;
+
+&lt;p&gt;The interesting thing here is that dynamic models can very easily, or even often, result in unfamiliar functions.&lt;/p&gt;
+
+&lt;h2 id="land-use"&gt;Land use&lt;/h2&gt;
+
+&lt;p&gt;Now let’s really complicate this model. The following is a set of equations from &lt;a href="http://dx.doi.org/10.1126/science.277.5325.515"&gt;Dobson, Bradshaw, and Baker 1997&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s restrict to humans, and say we want to do this for a specific reason: we’re concerned about farming ecology (e.g. slash-and-burn is a big issue in South America, etc.). So we add a variable, A, to represent the agricultural land area. We further assume that the carrying capacity is proportional to A (i.e. twice as much farmland = twice as much capacity), so&lt;/p&gt;
+
+&lt;p&gt;dP/dt = cP(1-P/(hA))&lt;/p&gt;
+
+&lt;p&gt;The amount of farmland fluctuates as well. To model land use, we divide all land up into three kinds: farmland (A), forest (F), and unused or “other” (U). Farmland can be increased by people converting unused land or forest into farms, and decreased by farms being abandoned or the land being overused. We make up some constants, and&lt;/p&gt;
+
+&lt;p&gt;dA/dt = dPF + bU - aA&lt;/p&gt;
+
+&lt;p&gt;The term for converting forests involves an additional factor for the population - people will be more motivated to burn down forest for land when they need more food. You could put that factor on the conversion from unused land as well, but it’s nice to reduce the number of nonlinear terms, and ecologists are presumably more preoccupied with forests.&lt;/p&gt;
+
+&lt;p&gt;Forest grows over unused land. Call the constant for that s, and you get two more equations for area changes:&lt;/p&gt;
+
+&lt;p&gt;dF/dt = sU - dPF
+dU/dt = aA - (b+s)U&lt;/p&gt;
+
+&lt;p&gt;So we have four differential equations total, which are all linked.&lt;/p&gt;
+
+&lt;p&gt;An important thing to note is that the total land, P+A+F, is conserved. Which makes sense, you can’t just make more land. You can observe this is true in the model by seeing that d(P+A+F)/dt = dP/dt + dA/dt + dF/dt = 0.&lt;/p&gt;
+
+&lt;h2 id="long-term-behavior"&gt;Long term behavior&lt;/h2&gt;
+
+&lt;p&gt;Earlier I mentioned that exponential growth, well, grows. This is obviously not true of every dynamical system, but there are only so many ways a dynamic system can “end” - only so many things an f(t) can be as t goes to infinity.&lt;/p&gt;
+
+&lt;p&gt;Firstly it can approach a constant (which may be infinity). This happens with normal exponential growth if P(0) = 0; P(t) = 0 forever, because no more population is going to be created from nothing. It also happens, a bit more subtly, in the carrying capacity version; if P/K = 1 (so P = K), dP/dt equals zero, so P just stays there. This is called an equilibrium state.&lt;/p&gt;
+
+&lt;p&gt;You find an equilibrium state by setting all the rates of change to zero, so that nothing moves. This may be easier said than done, for complicated systems, but it’s workable for the land use thing here.&lt;/p&gt;
+
+&lt;p&gt;dP/dt = 0 = cP(1-P/(hA)), so either P = 0 or P = hA. For P = 0, dF/dt = 0 = sU - dPF shows that sU = dPF, but P = 0, so U = 0. dA/dt = 0 = dPF + bU - aA then shows A is zero as well, and F is unconstrained; so everybody being dead and all the world (however large it is) being forest is an equilibrium. If P = hA, sU = dPF = dhAF. From dU/dt, aA = (b+s)U, and substituting back sU = dh(1/a)(b+s)UF, so F = as/(dh(b+s)); the other values can be worked out similarly. So there are two equilibria.&lt;/p&gt;
+
+&lt;p&gt;There could additionally be cycles, some set of values that repeatedly evolves back to itself. These are much harder to find, especially in higher dimensions; I vaguely remember a story about a Russian mathematics professor passing out to each of his students a random quadratic DE systems and telling them to find any limit cycles, and getting no results.&lt;/p&gt;
+
+&lt;p&gt;And since it’s (bigger than) three dimensional, it can additionally have toruses, and strange attractors, and all that.&lt;/p&gt;
+
+&lt;p&gt;But at least we got a model.&lt;/p&gt;
+
+&lt;p&gt;*: Leibniz invented calculus independently, but I don’t know what he used it for. There’s a lot of important work Newton and Leibniz could use to build calculus, like Fermat’s (of theorem fame) adequality. Newton, however, built a whole theory of differential equations (or “fluxions”), so I’m blaming him. They were all hella smart dudes regardless.&lt;/p&gt;
+</content>
+    <summary type="html">
+&lt;p&gt;I’m working through the exercises of a dynamics textbook for lack of worse things to do.&lt;/p&gt;
+
+&lt;p&gt;Dynamics is pretty neat. It is a part of mathematics useful for modeling approximately continuous physical processes. This is analogous to computers, which are useful for modeling discontinuous processes. (I’m going to write about that analogy later, but it’s a subject that requires a lot of precision.) If you’re used to computer models, which tend to be lengthy series of pretty opaque numeric operations possibly written in some obscure language like IDL, the seeming terseness of most dynamic models can be a bit surprising. Where do all these constants come from? How can you draw important conclusions without even having values?&lt;/p&gt;
+
+&lt;p&gt;Well, that’s what I thought when I began learning dynamics, anyway. As it turns out, this is how it works because it’s pretty easy to invent a dynamic model, and easy to describe, and in some cases determine, their qualitative behavior.&lt;/p&gt;
+
+&lt;div class='read-more'&gt;&lt;a href='/posts/dirt-simple-de.html'&gt;Continue reading &amp;rsaquo;&lt;/a&gt;&lt;/div&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:bike.github.io,2016-07-28:/posts/about.html</id>
+    <title type="html">About</title>
+    <published>2016-07-28T23:59:20Z</published>
+    <updated>2016-07-28T23:59:20Z</updated>
+    <link rel="alternate" href="https://bike.github.io/posts/about.html"/>
+    <content type="html">
+&lt;p&gt;I am a computational neuroscience student. As of yet, I have no name.&lt;/p&gt;
+
+&lt;p&gt;This blog has no particular subject, but I am most predisposed to write about science, as that is the kind of writing I am best at. I have other interests, such as history, but expect less content in this area.&lt;/p&gt;
+
+&lt;p&gt;I have no personality and hate being identified.&lt;/p&gt;
+</content>
+    <summary type="html">
+&lt;p&gt;I am a computational neuroscience student. As of yet, I have no name.&lt;/p&gt;
+
+&lt;p&gt;This blog has no particular subject, but I am most predisposed to write about science, as that is the kind of writing I am best at. I have other interests, such as history, but expect less content in this area.&lt;/p&gt;
+
+&lt;p&gt;I have no personality and hate being identified.&lt;/p&gt;
+</summary>
+  </entry>
+  <entry>
+    <id>tag:bike.github.io,2016-07-28:/posts/organ-complexity.html</id>
+    <title type="html">Kidneys are hard</title>
+    <published>2016-07-28T20:47:51Z</published>
+    <updated>2016-07-28T20:47:51Z</updated>
+    <link rel="alternate" href="https://bike.github.io/posts/organ-complexity.html"/>
+    <content type="html">
+&lt;p&gt;Conversation on twitter:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758704690586460160"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; random thought regarding http://arstechnica.com/science/2016/07/the-man-who-got-the-first-double-hand-transplant-wishes-he-hadnt/&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758704840360898562"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; originally, people thought human tech would be superior to transplants, etc, because Obviously Tech Is Better, sci-fi, etc&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758704953242161152"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; then sci-fi types started to realize that biology was really good at what it does and human replacements were laughable try-hards&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758705029670776833"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; but the problem is we have no freaking clue how the biological stuff works, while we do understand our shitty replacements&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758706138061811714"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; so…. we may end up going full circle back to cyborgs because we suck at biology?&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/yaodema/status/758712622309109760"&gt;&amp;lt;yaodema&amp;gt;&lt;/a&gt; And because prostheses are getting way better. Transplants are terrible, nerve damage is hard to fix, etc.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758713108487507970"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; exactly. even if human organs are way better than artificial ones, we don’t understand them enough to use and fix them&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is sorta true. Biology is hard, especially when you want to validate your understanding by actually making functioning things. Transplants are, as in the linked article, kind of hit or miss, and require immunosuppressants and antibiotics (for surgery), which is a bit like having to pump a factory full of chlorine gas before you can fix anything. But I don’t know if artificial replacements are so much of an improvement, at least as concerns understanding.&lt;/p&gt;
+
+&lt;p&gt;Large parts of the body are effectively irreplaceable for the forseeable future - most obviously, the immune and nervous systems*, exactly the ones an implant most needs to deal with. Given that the implant designer can’t design the entire body, the first reason implants (or, it should be said, transplants) are so difficult to design/perform is that their interactions with the rest of the body, especially these systems, are difficult to control. It’s not that hard to make a pump the size of a heart, but it’s hard to make one that hooks up to the cardiovascular system without something dying, and, at present, impossible to make one that properly responds to nervous signals.&lt;/p&gt;
+
+&lt;p&gt;The difficulty of course changes depending on what is being replaced. We can make legs now that are better than real ones in a few aspects. Artificial hands can reach and grasp and are beginning to provide haptic feedback. Hearts are, as mentioned, regulatorily isolated, and only last a few years. Ears are only good enough to make it easier to read lips.&lt;/p&gt;
+
+&lt;p&gt;The problem of interaction is one of both physics and understanding. We lack understanding of what nervous signals mean: this is something we can improve and are improving on. (It’s something I’d like to help improve.)&lt;/p&gt;
+
+&lt;p&gt;But we also lack the &lt;em&gt;physical ability&lt;/em&gt; to make good connections. When you insert a neuroprosthetic into somebody, you maneuever a wire or probe into an area that has neurons in it. The probe then mediates some electrical stimulation - emits or sucks in nearby electrons, which hopefully alters the local potential enough that neurons nearby change their behavior in a way close to what we would like. It’s hard to understate how crappy this is. The probe has to be designed to do minimal damage to living tissue - damage that’s quite easy to do, since living tissue isn’t great with electric shocks - as well as to survive itself in an environment few iridium wires have ever gone before. Even when this is accomplished, its actual ability to stimulate is not great, because it can only manipulate the outside potentials.&lt;/p&gt;
+
+&lt;p&gt;Humans have, in fact, designed “artificial cochleas” better than any of the signal processing in cochlear implants; but they lack the ability to effectively communicate with spiral ganglion cells, so nobody’s getting one in their skull any time soon.&lt;/p&gt;
+
+&lt;p&gt;But that’s all still, more or less, a technological problem, something we will maybe solve in the future, ushering in an era of slightly less laughable replacements.&lt;/p&gt;
+
+&lt;p&gt;So let’s ask: why is it that biology is hard, and computers are easy?&lt;/p&gt;
+
+&lt;p&gt;The blithe answer is evolution. There has been no selection pressure for humans to evolve JTAG ports for debugging, and so we lack them. There has been no selection pressure to make open heart surgery easy, so it’s newer than computers despite that we’ve had all the tools to open ribcages for quite a while. There has been no selection pressure to make kidneys hot-swappable, so we have to bother with immunosuppressants and all that crap.&lt;/p&gt;
+
+&lt;p&gt;This is true but doesn’t really answer anything. There might be &lt;em&gt;reasons&lt;/em&gt; that the body is as hard to operate on as it is; actual design considerations that could come up even when an enterprising neuroprosthetist decides to redesign humanity from scratch, piece by piece.&lt;/p&gt;
+
+&lt;p&gt;When you, or a robot, jogs, on your so-mechanically-interesting legs, the most obvious thing to happen is that the control system (brain, CPU) sends signals to the actuators (muscles, motors) to move in some jogging pattern. This is a process reasonably well understood by roboticists, and robots can successfully walk. The second most obvious thing to happen is that less famous parts of actuators, with obscure names like “nuclear bag fibers” or “Hall effect sensors”, send signals back to and through the control system so that the system as a whole can be adjsted to walk better. Roboticists have, as far as I know, a pretty good understanding of this too, and so Boston Dynamics machines can walk on rubble.&lt;/p&gt;
+
+&lt;p&gt;The less obvious thing to happen, in humans and I don’t think robots, is the sympathetic response. Your brain sends signals down your vagus nerve that hit most organs. Your heart beats faster: obviously. Your lungs reorient to take in more air: no surprise. Your pupils dilate: uh. Your intestines’ autonomic peristalsis is inhibited: guess that makes sense. Smooth muscles around blood vessels contract or relax depending on whether they feed your gastrointestinal system or your extremities: okay. Your kidneys secrete more renin: what?&lt;/p&gt;
+
+&lt;p&gt;Unsurprisingly, all this is part of a “design” to regulate energy usage, since there’s not much call to continue digesting lunch while you’re running from the jabberwock. But practically speaking, it means every part of the body has to somehow be informed about a bunch of seemingly irrelevant crap. Kidneys are not just filters: they react to sympathetic innervation, as well as water and sodium levels, and &lt;a href="https://en.wikipedia.org/wiki/Renin%E2%80%93angiotensin_system"&gt;all this complex stuff that inexplicably involves the lungs&lt;/a&gt;. Pretty much every organ is like this. Even the gallbladder, probably, even though it’s mostly just a bag.&lt;/p&gt;
+
+&lt;p&gt;So if you want a replacement organ, either you have to fit all those complex interactions into your implant, or you just focus on one thing and abandon the rest. That is to say, replacement organs are not just laughable try-hards because it’s hard to make a small pump/filter/whatever, they’re laughable try-hards because they can’t do everything the original can do. Artificial hearts (and, again, transplants), as mentioned, don’t receive vagus innervation and only sometimes** even change their flow rate in response to blood pressure. Dialysis machines are huge and generally make you sit still. Etc.&lt;/p&gt;
+
+&lt;p&gt;You may think that this is not so bad. That you can roll this up as a necessary sacrifice in order that we can have some understanding of what the hell is happening. That we can just have our artificial organs do one thing, and do it well.&lt;/p&gt;
+
+&lt;p&gt;Does &lt;a href="https://en.wikipedia.org/wiki/Unix_philosophy"&gt;that&lt;/a&gt; even work for computers? If you have used a computer for very long, you probably know that the answer is no. Eventually you want emacs or Firefox or to sprint without your muscles slowly dying of oxygen starvation, and suddenly you don’t understand anything. Listen: when I leave Firefox on for a long time, YouTube videos don’t play smoothly. Do I know what that happens? No. Do I expect to fix it? Ha ha no. Do I expect anybody to fix it? Still no, because I know that the problem is probably a consequence of complex interactions between the memory allocator, SpiderMonkey, systemd, Linux syscalls, my zshrc, my Steam community profile, electromagnetic emanations from the nearby power substation, and possibly even the CPU at some level. I have as much understanding of the problem as I do of cancer. The symptom is obvious, but for the cause I’m left thinking stupid things like “maybe I should upgrade” or “doesn’t red wine help with that?”&lt;/p&gt;
+
+&lt;p&gt;I think that humanity has not yet come up with a good way to design this kind of system. There might not even be one, for standards of “good” allowing maintenance like you can do on simpler machinery. Consider how hard it is to get a video game working well on Linux, and then imagine how hard it will be to install a Weyland-Yutani lymph node in a body that has original components, a Betacel pacemaker, and kidneys of two different brands.&lt;/p&gt;
+
+&lt;p&gt;This isn’t to say that implants are inherently useless, or won’t get better, or anything like that. I just think that a complex system like the body, individual parts of it, or even my desktop computer, is going to be more-or-less inherently hard to understand.&lt;/p&gt;
+
+&lt;p&gt;*: This is a whole other post&lt;/p&gt;
+
+&lt;p&gt;**: Wikipedia says that CARMAT, developed in 2008, is the first to do this, but I admit I don’t know much about artificial heart design and this may be wrong.&lt;/p&gt;
+</content>
+    <summary type="html">
+&lt;p&gt;Conversation on twitter:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758704690586460160"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; random thought regarding http://arstechnica.com/science/2016/07/the-man-who-got-the-first-double-hand-transplant-wishes-he-hadnt/&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758704840360898562"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; originally, people thought human tech would be superior to transplants, etc, because Obviously Tech Is Better, sci-fi, etc&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758704953242161152"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; then sci-fi types started to realize that biology was really good at what it does and human replacements were laughable try-hards&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758705029670776833"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; but the problem is we have no freaking clue how the biological stuff works, while we do understand our shitty replacements&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758706138061811714"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; so…. we may end up going full circle back to cyborgs because we suck at biology?&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/yaodema/status/758712622309109760"&gt;&amp;lt;yaodema&amp;gt;&lt;/a&gt; And because prostheses are getting way better. Transplants are terrible, nerve damage is hard to fix, etc.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href="https://twitter.com/FioraAeterna/status/758713108487507970"&gt;&amp;lt;Fiora&amp;gt;&lt;/a&gt; exactly. even if human organs are way better than artificial ones, we don’t understand them enough to use and fix them&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is sorta true. Biology is hard, especially when you want to validate your understanding by actually making functioning things. Transplants are, as in the linked article, kind of hit or miss, and require immunosuppressants and antibiotics (for surgery), which is a bit like having to pump a factory full of chlorine gas before you can fix anything. But I don’t know if artificial replacements are so much of an improvement, at least as concerns understanding.&lt;/p&gt;
+
+&lt;p&gt;Large parts of the body are effectively irreplaceable for the forseeable future - most obviously, the immune and nervous systems*, exactly the ones an implant most needs to deal with. Given that the implant designer can’t design the entire body, the first reason implants (or, it should be said, transplants) are so difficult to design/perform is that their interactions with the rest of the body, especially these systems, are difficult to control. It’s not that hard to make a pump the size of a heart, but it’s hard to make one that hooks up to the cardiovascular system without something dying, and, at present, impossible to make one that properly responds to nervous signals.&lt;/p&gt;
+
+&lt;p&gt;The difficulty of course changes depending on what is being replaced. We can make legs now that are better than real ones in a few aspects. Artificial hands can reach and grasp and are beginning to provide haptic feedback. Hearts are, as mentioned, regulatorily isolated, and only last a few years. Ears are only good enough to make it easier to read lips.&lt;/p&gt;
+
+&lt;p&gt;The problem of interaction is one of both physics and understanding. We lack understanding of what nervous signals mean: this is something we can improve and are improving on. (It’s something I’d like to help improve.)&lt;/p&gt;
+
+&lt;p&gt;But we also lack the &lt;em&gt;physical ability&lt;/em&gt; to make good connections. When you insert a neuroprosthetic into somebody, you maneuever a wire or probe into an area that has neurons in it. The probe then mediates some electrical stimulation - emits or sucks in nearby electrons, which hopefully alters the local potential enough that neurons nearby change their behavior in a way close to what we would like. It’s hard to understate how crappy this is. The probe has to be designed to do minimal damage to living tissue - damage that’s quite easy to do, since living tissue isn’t great with electric shocks - as well as to survive itself in an environment few iridium wires have ever gone before. Even when this is accomplished, its actual ability to stimulate is not great, because it can only manipulate the outside potentials.&lt;/p&gt;
+
+&lt;p&gt;Humans have, in fact, designed “artificial cochleas” better than any of the signal processing in cochlear implants; but they lack the ability to effectively communicate with spiral ganglion cells, so nobody’s getting one in their skull any time soon.&lt;/p&gt;
+
+&lt;p&gt;But that’s all still, more or less, a technological problem, something we will maybe solve in the future, ushering in an era of slightly less laughable replacements.&lt;/p&gt;
+
+&lt;p&gt;So let’s ask: why is it that biology is hard, and computers are easy?&lt;/p&gt;
+
+&lt;p&gt;The blithe answer is evolution. There has been no selection pressure for humans to evolve JTAG ports for debugging, and so we lack them. There has been no selection pressure to make open heart surgery easy, so it’s newer than computers despite that we’ve had all the tools to open ribcages for quite a while. There has been no selection pressure to make kidneys hot-swappable, so we have to bother with immunosuppressants and all that crap.&lt;/p&gt;
+
+&lt;p&gt;This is true but doesn’t really answer anything. There might be &lt;em&gt;reasons&lt;/em&gt; that the body is as hard to operate on as it is; actual design considerations that could come up even when an enterprising neuroprosthetist decides to redesign humanity from scratch, piece by piece.&lt;/p&gt;
+
+&lt;p&gt;When you, or a robot, jogs, on your so-mechanically-interesting legs, the most obvious thing to happen is that the control system (brain, CPU) sends signals to the actuators (muscles, motors) to move in some jogging pattern. This is a process reasonably well understood by roboticists, and robots can successfully walk. The second most obvious thing to happen is that less famous parts of actuators, with obscure names like “nuclear bag fibers” or “Hall effect sensors”, send signals back to and through the control system so that the system as a whole can be adjsted to walk better. Roboticists have, as far as I know, a pretty good understanding of this too, and so Boston Dynamics machines can walk on rubble.&lt;/p&gt;
+
+&lt;p&gt;The less obvious thing to happen, in humans and I don’t think robots, is the sympathetic response. Your brain sends signals down your vagus nerve that hit most organs. Your heart beats faster: obviously. Your lungs reorient to take in more air: no surprise. Your pupils dilate: uh. Your intestines’ autonomic peristalsis is inhibited: guess that makes sense. Smooth muscles around blood vessels contract or relax depending on whether they feed your gastrointestinal system or your extremities: okay. Your kidneys secrete more renin: what?&lt;/p&gt;
+
+&lt;p&gt;Unsurprisingly, all this is part of a “design” to regulate energy usage, since there’s not much call to continue digesting lunch while you’re running from the jabberwock. But practically speaking, it means every part of the body has to somehow be informed about a bunch of seemingly irrelevant crap. Kidneys are not just filters: they react to sympathetic innervation, as well as water and sodium levels, and &lt;a href="https://en.wikipedia.org/wiki/Renin%E2%80%93angiotensin_system"&gt;all this complex stuff that inexplicably involves the lungs&lt;/a&gt;. Pretty much every organ is like this. Even the gallbladder, probably, even though it’s mostly just a bag.&lt;/p&gt;
+
+&lt;p&gt;So if you want a replacement organ, either you have to fit all those complex interactions into your implant, or you just focus on one thing and abandon the rest. That is to say, replacement organs are not just laughable try-hards because it’s hard to make a small pump/filter/whatever, they’re laughable try-hards because they can’t do everything the original can do. Artificial hearts (and, again, transplants), as mentioned, don’t receive vagus innervation and only sometimes** even change their flow rate in response to blood pressure. Dialysis machines are huge and generally make you sit still. Etc.&lt;/p&gt;
+
+&lt;p&gt;You may think that this is not so bad. That you can roll this up as a necessary sacrifice in order that we can have some understanding of what the hell is happening. That we can just have our artificial organs do one thing, and do it well.&lt;/p&gt;
+
+&lt;p&gt;Does &lt;a href="https://en.wikipedia.org/wiki/Unix_philosophy"&gt;that&lt;/a&gt; even work for computers? If you have used a computer for very long, you probably know that the answer is no. Eventually you want emacs or Firefox or to sprint without your muscles slowly dying of oxygen starvation, and suddenly you don’t understand anything. Listen: when I leave Firefox on for a long time, YouTube videos don’t play smoothly. Do I know what that happens? No. Do I expect to fix it? Ha ha no. Do I expect anybody to fix it? Still no, because I know that the problem is probably a consequence of complex interactions between the memory allocator, SpiderMonkey, systemd, Linux syscalls, my zshrc, my Steam community profile, electromagnetic emanations from the nearby power substation, and possibly even the CPU at some level. I have as much understanding of the problem as I do of cancer. The symptom is obvious, but for the cause I’m left thinking stupid things like “maybe I should upgrade” or “doesn’t red wine help with that?”&lt;/p&gt;
+
+&lt;p&gt;I think that humanity has not yet come up with a good way to design this kind of system. There might not even be one, for standards of “good” allowing maintenance like you can do on simpler machinery. Consider how hard it is to get a video game working well on Linux, and then imagine how hard it will be to install a Weyland-Yutani lymph node in a body that has original components, a Betacel pacemaker, and kidneys of two different brands.&lt;/p&gt;
+
+&lt;p&gt;This isn’t to say that implants are inherently useless, or won’t get better, or anything like that. I just think that a complex system like the body, individual parts of it, or even my desktop computer, is going to be more-or-less inherently hard to understand.&lt;/p&gt;
+
+&lt;p&gt;*: This is a whole other post&lt;/p&gt;
+
+&lt;p&gt;**: Wikipedia says that CARMAT, developed in 2008, is the first to do this, but I admit I don’t know much about artificial heart design and this may be wrong.&lt;/p&gt;
+</summary>
+  </entry>
+  <entry>
+    <id>tag:bike.github.io,2016-07-20:/posts/first-post.html</id>
+    <title type="html">First post</title>
+    <published>2016-07-21T00:43:09Z</published>
+    <updated>2016-07-21T00:43:09Z</updated>
+    <link rel="alternate" href="https://bike.github.io/posts/first-post.html"/>
+    <content type="html">
+&lt;p&gt;Setting up a blog is harder than I’d thought.&lt;/p&gt;
+</content>
+    <summary type="html">
+&lt;p&gt;Setting up a blog is harder than I’d thought.&lt;/p&gt;
+</summary>
+  </entry>
+</feed>
+
